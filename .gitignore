@@ -1,2 +1,2 @@
-# Ignore binary files
-*.bin
+# Ignore binary files at any depth
+**/*.bin
