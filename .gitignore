@@ -1,3 +1,2 @@
 # Ignore binary files at any depth
 **/*.bin
-src/boot.bin
