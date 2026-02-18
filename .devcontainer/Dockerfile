@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     gcc \
     binutils \
     sudo \
+    git \
     && apt-get clean
 
 # Création de l'utilisateur non-root
