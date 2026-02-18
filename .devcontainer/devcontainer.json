@@ -1,0 +1,23 @@
+{
+    "name": "VGA Dev Environment",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash"
+            },
+            "extensions": [
+                "ms-vscode.makefile-tools"
+            ]
+        }
+    },
+    "remoteUser": "jean-michel",
+    "workspaceFolder": "/workspace",
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/workspace,type=bind"
+    ],
+
+    "postStartCommand": "/usr/local/bin/post_start.sh"
+}
