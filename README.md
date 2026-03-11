@@ -156,3 +156,37 @@ Le code assembleur suit ces étapes :
 
 - Vérifiez que NASM est installé et accessible depuis le PATH
 - Tapez `nasm --version` pour vérifier l'installation
+
+
+## Préparation d'un Floppy
+
+C'est plus rigolo, si on pouvait fabriquer une vraie disquette qui boot avec cette petite demo, non ?
+
+### Trouver le Floppy Disk
+
+```bash
+cat /proc/partitions
+```
+
+Chercher le lecteur de disquette, par exemple `fd0` ou `fd1` ou `sdc`. La taille doit être de 1,44 Mo. Soit 1440 Ko.
+
+### Écrire le fichier boot.bin sur le Floppy Disk
+```bash
+cd src
+sudo dd if=./boot.bin of=/dev/sdc bs=512 count=1440
+sync
+```
+
+### Vérifier le contenu du Floppy Disk
+
+```bash
+sudo fdisk -l /dev/sdc
+```
+
+Si tout est bon, vous devriez voir un secteur de boot de 512 octets.
+
+### Booter sur le Floppy Disk
+
+```bash
+qemu-system-x86_64 -fda /dev/sdc
+```
