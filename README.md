@@ -168,19 +168,19 @@ C'est plus rigolo, si on pouvait fabriquer une vraie disquette qui boot avec cet
 cat /proc/partitions
 ```
 
-Chercher le lecteur de disquette, par exemple `fd0` ou `fd1` ou `sdc`. La taille doit être de 1,44 Mo. Soit 1440 Ko.
+Chercher le lecteur de disquette, par exemple `fd0` ou `fd1` ou `sdb`. La taille doit être de 1,44 Mo. Soit 1440 Ko.
 
 ### Écrire le fichier boot.bin sur le Floppy Disk
 ```bash
 cd src
-sudo dd if=./boot.bin of=/dev/sdc bs=512 count=1440
+sudo dd if=./boot.bin of=/dev/sdb bs=512 count=1440
 sync
 ```
 
 ### Vérifier le contenu du Floppy Disk
 
 ```bash
-sudo fdisk -l /dev/sdc
+sudo fdisk -l /dev/sdb
 ```
 
 Si tout est bon, vous devriez voir un secteur de boot de 512 octets.
@@ -188,5 +188,5 @@ Si tout est bon, vous devriez voir un secteur de boot de 512 octets.
 ### Booter sur le Floppy Disk
 
 ```bash
-qemu-system-x86_64 -fda /dev/sdc
+sudo qemu-system-x86_64 -drive file=/dev/sdb,format=raw,if=floppy
 ```
