@@ -1,20 +1,20 @@
 {
-  "recommendations": [
-    "anthropic.claude-code",
-    "openai.chatgpt",
-    "ms-azuretools.vscode-containers",
-    "ms-vscode-remote.remote-containers",
-    "tamasfe.even-better-toml",
-    "google.geminicodeassist",
-    "github.copilot-chat",
-    "s-nlf-fh.glassit",
-    "oderwat.indent-rainbow",
-    "kilocode.kilo-code",
-    "christian-kohler.path-intellisense",
-    "johnpapa.vscode-peacock",
-    "esbenp.prettier-vscode",
-    "robbowen.synthwave-vscode",
-    "ms-vscode-remote.remote-wsl",
-    "13xforever.language-x86-64-assembly"
-  ]
+    "recommendations": [
+        "github.copilot-chat",
+        "kilocode.kilo-code",
+        "anthropic.claude-code",
+        "openai.chatgpt",
+        "google.geminicodeassist",
+        "ms-azuretools.vscode-containers",
+        "ms-vscode-remote.remote-containers",
+        "tamasfe.even-better-toml",
+        "s-nlf-fh.glassit",
+        "oderwat.indent-rainbow",
+        "christian-kohler.path-intellisense",
+        "johnpapa.vscode-peacock",
+        "esbenp.prettier-vscode",
+        "robbowen.synthwave-vscode",
+        "ms-vscode-remote.remote-wsl",
+        "13xforever.language-x86-64-assembly"
+    ]
 }
