@@ -1,5 +1,7 @@
 # Projet Boot Sector VGA - Drapeau Français
 
+![Drapeau français affiché par le boot sector](assets/drapeau_FR.png)
+
 Ce projet est un **boot sector x86 (16 bits)** qui s'exécute au démarrage de l'ordinateur. Il affiche le drapeau français en utilisant le mode graphique VGA 13h.
 
 ## Description du programme
@@ -22,7 +24,7 @@ Le programme [`src/boot.asm`](src/boot.asm) est un secteur d'amorçage (boot sec
 ### Spécifications techniques
 
 | Caractéristique | Valeur |
-|-----------------|--------|
+| --------------- | ------ |
 | Mode VGA | 13h (320×200×256) |
 | Taille du secteur | 512 octets |
 | Adresse de chargement | 0x7C00 |
@@ -44,8 +46,8 @@ Le conteneur est configuré automatiquement via [`.devcontainer`](.devcontainer/
 
 Si vous souhaitez installer les outils localement :
 
-1. **NASM** - Téléchargez depuis https://www.nasm.us/
-2. **QEMU** - Téléchargez QEMU pour Windows depuis https://www.qemu.org/download/#windows
+1. **NASM** - Téléchargez depuis [NASM](https://www.nasm.us/)
+2. **QEMU** - Téléchargez QEMU pour Windows depuis [qemu.org](https://www.qemu.org/download/#windows)
 
 ## Compilation
 
@@ -58,7 +60,12 @@ Si vous souhaitez installer les outils localement :
 
 ### Commandes de compilation
 
-Dans le dossier `src/`, exécutez :
+À la racine du projet, exécutez :
+
+```bash
+# Vérifier que NASM et QEMU sont installés
+make test
+```
 
 ```bash
 # Compiler le boot sector
@@ -66,23 +73,34 @@ make all
 ```
 
 Cette commande exécute :
+
 ```bash
-nasm -f bin boot.asm -o boot.bin
+nasm -f bin src/boot.asm -o boot.bin
 ```
 
-Cela produit le fichier `boot.bin` (512 octets) contenant le secteur d'amorçage.
+Cela produit le fichier `boot.bin` (512 octets) à la racine du projet. Il contient le secteur d'amorçage.
+
+Si un outil est manquant, le script de vérification affiche une commande d'installation pour Fedora, CachyOS ou Windows. Par défaut, QEMU est appelé avec `qemu-system-i386`; vous pouvez changer la commande avec `make run QEMU=qemu-system-x86_64` si votre installation utilise ce nom.
+La vérification est centralisée dans [`check_install.sh`](check_install.sh), que vous pouvez aussi lancer directement :
+
+```bash
+./check_install.sh all
+./check_install.sh nasm
+./check_install.sh qemu
+```
 
 ## Exécution et test
 
 ### Lancer avec QEMU
 
-Dans le dossier `src/`, exécutez :
+À la racine du projet, exécutez :
 
 ```bash
 make run
 ```
 
 Cette commande exécute :
+
 ```bash
 qemu-system-i386 -drive format=raw,file=boot.bin
 ```
@@ -93,7 +111,7 @@ QEMU émulera un PC classique et démarrera sur le secteur d'amorçage. Vous dev
 
 Le projet est configuré avec une extension Makefile Tools. Vous pouvez :
 
-1. Ouvrir le dossier `src/` dans VSCode
+1. Ouvrir la racine du projet dans VSCode
 2. Utiliser les tâches Makefile (Ctrl+Shift+P → "Tasks: Run Task")
 3. Sélectionner "build" pour compiler
 4. Sélectionner "run" pour exécuter dans QEMU
@@ -110,14 +128,14 @@ Cela supprime le fichier `boot.bin`.
 
 ## Structure du projet
 
-```
+```text
 VGA-boot/
 ├── .devcontainer/
 │   ├── devcontainer.json    # Configuration VSCode Dev Containers
 │   └── Dockerfile          # Image Docker avec NASM et QEMU
 ├── src/
-│   ├── boot.asm             # Code source du boot sector
-│   └── Makefile             # Script de compilation
+│   └── boot.asm             # Code source du boot sector
+├── Makefile                 # Script de compilation
 ├── .gitignore
 └── VGA-boot.code-workspace # Workspace VSCode
 ```
@@ -144,7 +162,7 @@ Le code assembleur suit ces étapes :
 
 ### QEMU ne démarre pas
 
-- Vérifiez que `boot.bin` existe dans le dossier `src/`
+- Vérifiez que `boot.bin` existe à la racine du projet
 - Assurez-vous que QEMU est correctement installé
 
 ### L'écran reste noir
@@ -156,7 +174,6 @@ Le code assembleur suit ces étapes :
 
 - Vérifiez que NASM est installé et accessible depuis le PATH
 - Tapez `nasm --version` pour vérifier l'installation
-
 
 ## Préparation d'un Floppy
 
@@ -171,8 +188,8 @@ cat /proc/partitions
 Chercher le lecteur de disquette, par exemple `fd0` ou `fd1` ou `sdb`. La taille doit être de 1,44 Mo. Soit 1440 Ko.
 
 ### Écrire le fichier boot.bin sur le Floppy Disk
+
 ```bash
-cd src
 sudo dd if=./boot.bin of=/dev/sdb bs=512 count=1440
 sync
 ```
@@ -190,3 +207,5 @@ Si tout est bon, vous devriez voir un secteur de boot de 512 octets.
 ```bash
 sudo qemu-system-x86_64 -drive file=/dev/sdb,format=raw,if=floppy
 ```
+
+---
